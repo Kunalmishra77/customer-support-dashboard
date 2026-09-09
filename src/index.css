@@ -29,6 +29,24 @@
 
   --radius-surface: 10px;
   --radius-control: 6px;
+
+  /* Panel motion, per design system section 4. */
+  --animate-panel-in: panel-in 180ms ease-out;
+  --animate-sheet-in: sheet-in 180ms ease-out;
+  --animate-scrim-in: scrim-in 180ms ease-out;
+
+  @keyframes panel-in {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+  @keyframes sheet-in {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes scrim-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 }
 
 @layer base {
@@ -46,5 +64,15 @@
 
   .tnum {
     font-variant-numeric: tabular-nums;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
