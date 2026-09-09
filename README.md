@@ -6,6 +6,10 @@ ticket, move it along. Built as a technical task.
 **Live:** https://customer-support-dashboard-six.vercel.app
 **Repo:** https://github.com/Kunalmishra77/customer-support-dashboard
 
+![The ticket queue](screenshots/queue.png)
+
+![A ticket open in the detail panel, with the queue still visible behind it](screenshots/detail-panel.png)
+
 ## What it does
 
 - Queue summary with total, open, in progress and resolved counts, derived from the data rather
@@ -50,6 +54,7 @@ npm run dev          # http://localhost:5173
 ```bash
 npm run build        # type-check (tsc -b) and production build
 npm run preview      # serve the build locally - closer to production than the dev server
+npm run test         # vitest, 12 tests
 npm run lint
 ```
 
@@ -84,6 +89,7 @@ src/
     api/                     fetch layer, ApiError, delay, failure injection
     store/                   ticket store and a small ui store for toasts
     hooks/                   stats, filters, filtered list
+    lib/                     selectTickets - pure filter and sort, plus its tests
     components/              queue, filters, list, row, card, detail panel
   lib/                       constants, date helpers, cn
   types/                     the ticket model
@@ -135,6 +141,26 @@ where the space genuinely is not there.
 **Derived data is never stored.** Stats and the filtered list are computed with `useMemo` from
 the ticket array. Two sources of truth for the same number is how counts drift out of sync.
 
+## Tests
+
+`npm run test` - 12 tests, no browser environment needed.
+
+Vitest is the only test dependency. Two of the three things worth testing do not need React at
+all: `formatRelative` is pure and takes an injectable `now`, and the Zustand store is a plain
+object outside React, so `useTicketStore.getState().updateStatus(...)` exercises the optimistic
+path directly. The filtering and sorting was moved out of `useFilteredTickets` into a pure
+`selectTickets` for the same reason - the hook is now a thin wrapper over a function a test can
+call with an array and an object.
+
+- `date.test.ts` - relative formatting at each boundary
+- `selectTickets.test.ts` - search across all three fields, filters combining with search,
+  the three sort orders, and that the input array is never mutated
+- `ticketStore.test.ts` - the change lands before the request resolves; a failure restores both
+  the status and `updatedAt` and raises a toast; no request fires for a no-op or an unknown id
+
+Each test was checked by breaking the code it covers and confirming it failed - a test that
+cannot fail is not a test.
+
 ## Accessibility
 
 - Rows are keyboard operable: Tab to a row, Enter or Space opens it
@@ -150,13 +176,14 @@ the ticket array. Two sources of truth for the same number is how counts drift o
 
 ## AI tools used
 
-- **Claude Code (Claude Opus 5)** — the planning documents in `/docs` were written first, then
-  the build ran phase by phase against them: scaffolding, primitives, the data layer and store,
-  the queue, the detail panel, and a responsive/accessibility audit pass. Each phase was
-  reviewed and committed separately, which is why the history reads the way it does.
+- **Claude Code (Claude Opus 5)** — I wrote a specification first (requirements, data model,
+  state design, component tree and a design system), then built against it phase by phase:
+  scaffolding, primitives, the data layer and store, the queue, the detail panel, and a
+  responsive/accessibility audit pass. Each phase was reviewed and committed separately, which
+  is why the history reads the way it does.
 
-I read every diff before committing it, and the architecture decisions above are ones I can
-defend — the specification in `/docs` predates the code and drove it.
+I read every diff before committing it, and the decisions above are ones I can explain and
+change — the specification predates the code and drove it.
 
 ## Limitations
 
@@ -169,13 +196,14 @@ defend — the specification in `/docs` predates the code and drove it.
   an interactive control inside a `role="button"` is an ARIA violation on paper; it behaves
   correctly in practice, and the alternative — a dedicated open-link per row — loses the
   whole-row click target the design calls for. A conscious trade-off rather than an oversight.
-- No tests. With more time the first three would be the filter hook, the optimistic rollback
-  path, and the relative-time helper (which takes an injectable `now` for exactly that reason).
+- Tests cover the filter/sort logic, the store's optimistic and rollback paths and the date
+  helper. The components are untested - that would need a DOM environment and testing-library,
+  which felt like the wrong place to spend the remaining time.
 - No auth, ticket creation, assignment or reply sending — outside the brief's scope.
 
 ## What I would do next
 
-- Vitest around `useFilteredTickets`, the store's rollback path, and `formatRelative`
+- Component tests with testing-library, starting with the row's stopPropagation behaviour
 - `localStorage` persistence of status changes, documented honestly as a workaround for having
   no backend
 - Server-side search and pagination once the list grows

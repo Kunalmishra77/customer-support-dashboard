@@ -30,3 +30,11 @@ dist-ssr
 
 .vercel
 .env*
+
+# Personal working notes - not part of the deliverable
+START-HERE.md
+README-TEMPLATE.md
+prompts/
+docs/07-INTERVIEW-PREP.md
+docs/
+CLAUDE.md
