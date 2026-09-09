@@ -2,7 +2,9 @@ const MINUTE = 60_000
 const HOUR = 60 * MINUTE
 const DAY = 24 * HOUR
 
-const relative = new Intl.RelativeTimeFormat('en', { numeric: 'auto', style: 'narrow' })
+// numeric 'always' keeps the column scannable: "1d ago" beside "2d ago",
+// rather than 'auto' swapping in "yesterday".
+const relative = new Intl.RelativeTimeFormat('en', { numeric: 'always', style: 'narrow' })
 
 const absolute = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric',

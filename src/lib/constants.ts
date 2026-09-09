@@ -10,27 +10,12 @@ export const STATUS_META: Record<Status, { label: string; dotClass: string }> = 
   resolved: { label: 'Resolved', dotClass: 'bg-status-resolved' },
 }
 
-export const PRIORITY_META: Record<
-  Priority,
-  { label: string; ruleClass: string; tagClass: string }
-> = {
-  high: {
-    label: 'High',
-    ruleClass: 'bg-prio-high',
-    tagClass: 'bg-prio-high-tint text-prio-high-text',
-  },
-  medium: {
-    label: 'Medium',
-    ruleClass: 'bg-prio-medium',
-    tagClass: 'bg-prio-medium-tint text-prio-medium-text',
-  },
-  // Low has no tint by design: the rule stays present but silent so row text
+export const PRIORITY_META: Record<Priority, { label: string; ruleClass: string }> = {
+  high: { label: 'High', ruleClass: 'bg-prio-high' },
+  medium: { label: 'Medium', ruleClass: 'bg-prio-medium' },
+  // Low uses the line grey: the rule stays present but silent, so row text
   // aligns identically across priorities.
-  low: {
-    label: 'Low',
-    ruleClass: 'bg-line',
-    tagClass: 'border border-line text-muted',
-  },
+  low: { label: 'Low', ruleClass: 'bg-line' },
 }
 
 export const CHANNEL_LABEL: Record<Channel, string> = {

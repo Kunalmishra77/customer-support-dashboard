@@ -8,6 +8,7 @@ import IconButton from '@/components/ui/IconButton'
 import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
 import Skeleton from '@/components/ui/Skeleton'
+import PriorityTag from '@/features/tickets/components/PriorityTag'
 import StatusDot from '@/features/tickets/components/StatusDot'
 import { CHANNEL_LABEL, PRIORITY_META, PRIORITY_VALUES, STATUS_VALUES } from '@/lib/constants'
 import { formatAbsolute, formatRelative } from '@/lib/date'
@@ -76,15 +77,11 @@ export default function KitchenSinkPage() {
         <Badge tone="success">Success</Badge>
       </Section>
 
-      <Section title="Priority meta (feature layer maps to tone classes)">
+      <Section title="Priority: edge rule and PriorityTag">
         {PRIORITY_VALUES.map((priority) => (
           <span key={priority} className="inline-flex items-center gap-2">
-            <span className={`h-6 w-[3px] rounded-full ${PRIORITY_META[priority].ruleClass}`} />
-            <span
-              className={`inline-flex items-center rounded-control px-2 py-0.5 text-xs font-medium ${PRIORITY_META[priority].tagClass}`}
-            >
-              {PRIORITY_META[priority].label}
-            </span>
+            <span className={`h-6 w-[3px] ${PRIORITY_META[priority].ruleClass}`} />
+            <PriorityTag priority={priority} />
           </span>
         ))}
       </Section>
