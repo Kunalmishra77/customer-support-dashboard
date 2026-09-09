@@ -74,7 +74,7 @@ export default function TicketDetailPanel() {
       <div className="min-h-0 flex-1 overflow-y-auto">
         <CustomerBlock customer={ticket.customer} />
         <MetaGrid ticket={ticket} />
-        <DescriptionBlock description={ticket.description} />
+        <DescriptionBlock description={ticket.description} tags={ticket.tags} />
         <MessageList messages={ticket.messages} />
       </div>
     </Panel>

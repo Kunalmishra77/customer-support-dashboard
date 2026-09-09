@@ -2,6 +2,7 @@ import type { KeyboardEvent } from 'react'
 import { ChevronRight } from 'lucide-react'
 import PriorityTag from '@/features/tickets/components/PriorityTag'
 import StatusSelect from '@/features/tickets/components/StatusSelect'
+import TicketTags from '@/features/tickets/components/TicketTags'
 import { cn } from '@/lib/cn'
 import { PRIORITY_META, STATUS_META } from '@/lib/constants'
 import { formatAbsolute, formatRelative } from '@/lib/date'
@@ -37,12 +38,21 @@ export default function TicketRow({ ticket, selected, onOpen }: TicketRowProps) 
       <td className={cn('w-[3px] p-0', PRIORITY_META[ticket.priority].ruleClass)} />
 
       <td className="max-w-0 py-2 pl-4 pr-4">
-        <p className="truncate font-medium leading-5" title={ticket.customer.name}>
-          {ticket.customer.name}
-        </p>
-        <p className="truncate leading-5 text-muted" title={ticket.subject}>
-          {ticket.subject}
-        </p>
+        <div className="flex items-baseline gap-2">
+          {/* The ID is searchable, so it has to be readable. */}
+          <span className="tnum shrink-0 text-xs text-muted">{ticket.id}</span>
+          <p className="truncate font-medium leading-5" title={ticket.customer.name}>
+            {ticket.customer.name}
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <p className="truncate leading-5 text-muted" title={ticket.subject}>
+            {ticket.subject}
+          </p>
+          <span className="hidden shrink-0 items-center gap-1 lg:flex">
+            <TicketTags tags={ticket.tags} limit={2} />
+          </span>
+        </div>
       </td>
 
       {/* The edge rule scans fastest, but colour alone fails WCAG 1.4.1 and the
@@ -53,6 +63,10 @@ export default function TicketRow({ ticket, selected, onOpen }: TicketRowProps) 
 
       <td className="w-48 px-4">
         <StatusSelect ticketId={ticket.id} status={ticket.status} stopRowActivation />
+      </td>
+
+      <td className="hidden w-40 truncate px-4 text-muted lg:table-cell">
+        {ticket.assignee ?? 'Unassigned'}
       </td>
 
       <td className="tnum w-24 px-4 text-muted" title={formatAbsolute(ticket.createdAt)}>

@@ -8,8 +8,18 @@ export default function AppShell() {
     <div className="min-h-screen">
       <header className="h-14 border-b border-line bg-surface">
         <div className="mx-auto flex h-full max-w-[1200px] items-center gap-6 px-4 md:px-6">
-          <span className="font-semibold text-ink">Ledgerly Support</span>
-          <span className="text-muted">Tickets</span>
+          <span className="flex items-center gap-2">
+            <span
+              aria-hidden="true"
+              className="flex h-6 w-6 items-center justify-center rounded-control bg-ink text-xs font-semibold text-surface"
+            >
+              L
+            </span>
+            <span className="font-semibold text-ink">Ledgerly Support</span>
+          </span>
+          <span aria-current="page" className="text-ink">
+            Tickets
+          </span>
           <div className="ml-auto flex items-center gap-2">
             <span
               aria-hidden="true"

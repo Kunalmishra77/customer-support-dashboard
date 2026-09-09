@@ -17,6 +17,7 @@ export default function TicketTable({ tickets, selectedId, onOpen }: TicketTable
             <th scope="col" className="pl-4 pr-4 font-medium">Customer / subject</th>
             <th scope="col" className="w-24 px-4 font-medium">Priority</th>
             <th scope="col" className="w-48 px-4 font-medium">Status</th>
+            <th scope="col" className="hidden w-40 px-4 font-medium lg:table-cell">Assignee</th>
             <th scope="col" className="w-24 px-4 font-medium">Created</th>
             <th className="w-10 pr-4" />
           </tr>

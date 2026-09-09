@@ -36,7 +36,10 @@ export default function TicketCard({ ticket, selected, onOpen }: TicketCardProps
       <span className={cn('w-[3px] shrink-0', PRIORITY_META[ticket.priority].ruleClass)} />
 
       <div className="min-w-0 flex-1 p-4">
-        <p className="truncate font-medium">{ticket.customer.name}</p>
+        <div className="flex items-baseline gap-2">
+          <span className="tnum shrink-0 text-xs text-muted">{ticket.id}</span>
+          <p className="truncate font-medium">{ticket.customer.name}</p>
+        </div>
         <p className="mt-1 break-words text-muted">{ticket.subject}</p>
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
