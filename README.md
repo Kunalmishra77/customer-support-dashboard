@@ -10,9 +10,10 @@ ticket, move it along. Built as a technical task.
 
 - Queue summary with total, open, in progress and resolved counts, derived from the data rather
   than stored, plus a proportion bar showing the same numbers as widths
-- Ticket list with customer, subject, priority, status and created date
+- Ticket list with ticket ID, customer, subject, tags, priority, status, assignee and created
+  date
 - Search across customer name, subject and ticket ID, debounced 250ms
-- Filter by status and by priority, combinable with search
+- Filter by status and by priority, and sort by newest, oldest or priority - all combinable
 - Change a ticket's status inline from the list or from the detail panel, optimistically
 - Detail panel with customer information, the full issue, status and priority, timestamps and
   the conversation history
@@ -126,6 +127,11 @@ and would leave the field invisible to a screen reader, so priority and status a
 into each row's accessible name: *"Open ticket TCK-1042, Invoice 4402 charged twice, High
 priority, Open"*.
 
+**The row shows what the agent needs to act, not the minimum.** The ticket ID is visible
+because search matches it — searching by an ID you cannot see is a dead end. Tags and assignee
+fill the row at wider viewports rather than leaving it half empty; both drop out below `lg`,
+where the space genuinely is not there.
+
 **Derived data is never stored.** Stats and the filtered list are computed with `useMemo` from
 the ticket array. Two sources of truth for the same number is how counts drift out of sync.
 
@@ -170,8 +176,6 @@ defend — the specification in `/docs` predates the code and drove it.
 ## What I would do next
 
 - Vitest around `useFilteredTickets`, the store's rollback path, and `formatRelative`
-- A sort control (newest, oldest, priority) — the hook already reads a `?sort=` param and
-  defaults to newest, so this is a UI control rather than new logic
 - `localStorage` persistence of status changes, documented honestly as a workaround for having
   no backend
 - Server-side search and pagination once the list grows
