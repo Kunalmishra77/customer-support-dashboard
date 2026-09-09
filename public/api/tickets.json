@@ -1,0 +1,410 @@
+[
+  {
+    "id": "TCK-1042",
+    "subject": "Invoice 4402 charged twice",
+    "description": "We were billed twice for invoice 4402 on 8 September — once at 09:02 and again at 09:04, both for $1,240.00. Both charges show as settled on our card statement. We need one of them reversed and confirmation that the retry logic won't do this again next cycle.",
+    "priority": "high",
+    "status": "open",
+    "channel": "email",
+    "createdAt": "2026-09-09T09:14:00.000Z",
+    "updatedAt": "2026-09-09T09:14:00.000Z",
+    "assignee": null,
+    "tags": ["billing", "duplicate-charge"],
+    "customer": {
+      "id": "CUS-201",
+      "name": "Priya Nair",
+      "email": "priya.nair@northgatelabs.io",
+      "company": "Northgate Labs",
+      "plan": "Growth"
+    },
+    "messages": [
+      {
+        "id": "MSG-1",
+        "author": { "name": "Priya Nair", "role": "customer" },
+        "body": "Our finance team flagged two identical charges for invoice 4402 this morning, four minutes apart. Both cleared. Can you reverse one and tell us what caused it?",
+        "sentAt": "2026-09-09T09:14:00.000Z"
+      },
+      {
+        "id": "MSG-2",
+        "author": { "name": "Priya Nair", "role": "customer" },
+        "body": "Adding the two transaction references in case they help: ch_8Fk2Qa and ch_8Fk2Qb.",
+        "sentAt": "2026-09-09T09:31:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1041",
+    "subject": "API key rotation broke our webhooks",
+    "description": "After rotating our live API key yesterday evening, all webhook deliveries began failing with 401. The new key works fine for REST calls. It looks like webhook signatures are still being generated against the old secret.",
+    "priority": "high",
+    "status": "in_progress",
+    "channel": "chat",
+    "createdAt": "2026-09-09T06:40:00.000Z",
+    "updatedAt": "2026-09-09T08:05:00.000Z",
+    "assignee": "Aditi Sharma",
+    "tags": ["api", "webhooks", "auth"],
+    "customer": {
+      "id": "CUS-198",
+      "name": "Marcus Webb",
+      "email": "marcus@tildesystems.com",
+      "company": "Tilde Systems",
+      "plan": "Scale"
+    },
+    "messages": [
+      {
+        "id": "MSG-3",
+        "author": { "name": "Marcus Webb", "role": "customer" },
+        "body": "Rotated our key at 23:10 last night. REST is fine, webhooks are all 401 since then. Roughly 4,000 events queued.",
+        "sentAt": "2026-09-09T06:40:00.000Z"
+      },
+      {
+        "id": "MSG-4",
+        "author": { "name": "Aditi Sharma", "role": "agent" },
+        "body": "Thanks Marcus — I can see the failures on our side too. The signing secret is separate from the API key and doesn't rotate with it, which is what's biting you here. I'm getting the exact steps from engineering now.",
+        "sentAt": "2026-09-09T07:12:00.000Z"
+      },
+      {
+        "id": "MSG-5",
+        "author": { "name": "Marcus Webb", "role": "customer" },
+        "body": "Understood. Will the queued events replay once it's fixed, or do we need to backfill?",
+        "sentAt": "2026-09-09T08:05:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1039",
+    "subject": "Can't add a second billing contact",
+    "description": "The billing settings page only accepts one email address. We need invoices to go to both our office manager and our accountant.",
+    "priority": "low",
+    "status": "open",
+    "channel": "email",
+    "createdAt": "2026-09-08T15:02:00.000Z",
+    "updatedAt": "2026-09-08T15:02:00.000Z",
+    "assignee": null,
+    "tags": ["settings", "feature-request"],
+    "customer": {
+      "id": "CUS-176",
+      "name": "Aarti Deshpande",
+      "email": "aarti@kumbhretail.in",
+      "company": "Kumbh Retail",
+      "plan": "Starter"
+    },
+    "messages": [
+      {
+        "id": "MSG-6",
+        "author": { "name": "Aarti Deshpande", "role": "customer" },
+        "body": "Is there a way to send invoices to two email addresses? The field in settings only takes one and I'd rather not use a forwarding rule.",
+        "sentAt": "2026-09-08T15:02:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1038",
+    "subject": "Proration looks wrong after mid-cycle upgrade",
+    "description": "We upgraded from Growth to Scale on 3 September, 12 days into a 30-day cycle. The proration credit on the next invoice is $180 but by our maths it should be around $264. Can someone check how the credit was calculated?",
+    "priority": "medium",
+    "status": "in_progress",
+    "channel": "email",
+    "createdAt": "2026-09-08T11:20:00.000Z",
+    "updatedAt": "2026-09-08T16:44:00.000Z",
+    "assignee": "Rafi Ahmed",
+    "tags": ["billing", "proration"],
+    "customer": {
+      "id": "CUS-164",
+      "name": "Tomás Ferreira",
+      "email": "tomas.ferreira@velahealth.pt",
+      "company": "Vela Health",
+      "plan": "Growth"
+    },
+    "messages": [
+      {
+        "id": "MSG-7",
+        "author": { "name": "Tomás Ferreira", "role": "customer" },
+        "body": "Attaching our working. We may well be wrong, but the gap is large enough that I'd like it confirmed before we pay.",
+        "sentAt": "2026-09-08T11:20:00.000Z"
+      },
+      {
+        "id": "MSG-8",
+        "author": { "name": "Rafi Ahmed", "role": "agent" },
+        "body": "Fair question. Proration here runs on seconds rather than whole days, and the unused portion is credited at the old rate rather than the new one. I'm pulling the line-item breakdown so you can see each component.",
+        "sentAt": "2026-09-08T16:44:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1036",
+    "subject": "Refund for the July subscription still not received",
+    "description": "A refund of $89 was approved on 21 August and we still haven't seen it. The bank says nothing is pending. This is the third time we've had to chase it.",
+    "priority": "high",
+    "status": "open",
+    "channel": "phone",
+    "createdAt": "2026-09-07T17:45:00.000Z",
+    "updatedAt": "2026-09-07T17:45:00.000Z",
+    "assignee": null,
+    "tags": ["refund", "escalation"],
+    "customer": {
+      "id": "CUS-142",
+      "name": "Grace Okafor",
+      "email": "grace@loomandash.co",
+      "company": "Loom & Ash",
+      "plan": "Starter"
+    },
+    "messages": [
+      {
+        "id": "MSG-9",
+        "author": { "name": "Grace Okafor", "role": "customer" },
+        "body": "Called in again today. Refund approved 21 August, nothing received. I've been told twice it was processed.",
+        "sentAt": "2026-09-07T17:45:00.000Z"
+      },
+      {
+        "id": "MSG-10",
+        "author": { "name": "Lena Cruz", "role": "agent" },
+        "body": "I'm sorry you've had to chase this. I can see the approval but no matching payout record, which means it stalled rather than failed. Escalating to payments now and I'll come back to you today with a date, not a status.",
+        "sentAt": "2026-09-07T18:02:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1035",
+    "subject": "Bulk export of invoices times out",
+    "description": "Exporting more than about 2,000 invoices as CSV fails with a gateway timeout at around 60 seconds. Smaller date ranges work. We need a full-year export for audit.",
+    "priority": "medium",
+    "status": "open",
+    "channel": "chat",
+    "createdAt": "2026-09-07T09:05:00.000Z",
+    "updatedAt": "2026-09-07T09:05:00.000Z",
+    "assignee": null,
+    "tags": ["export", "performance"],
+    "customer": {
+      "id": "CUS-133",
+      "name": "Daniel Reyes",
+      "email": "d.reyes@pilotlight.dev",
+      "company": "Pilotlight",
+      "plan": "Scale"
+    },
+    "messages": [
+      {
+        "id": "MSG-11",
+        "author": { "name": "Daniel Reyes", "role": "customer" },
+        "body": "Any range under a quarter exports fine. Full year dies at 60s every time. Is there an async export endpoint we should be using instead?",
+        "sentAt": "2026-09-07T09:05:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1033",
+    "subject": "Tax ID not showing on invoices for UAE",
+    "description": "Our TRN is saved in the billing profile but doesn't appear on generated invoices, which makes them non-compliant for us to file.",
+    "priority": "medium",
+    "status": "resolved",
+    "channel": "email",
+    "createdAt": "2026-09-06T13:30:00.000Z",
+    "updatedAt": "2026-09-07T11:15:00.000Z",
+    "assignee": "Aditi Sharma",
+    "tags": ["invoicing", "tax", "compliance"],
+    "customer": {
+      "id": "CUS-118",
+      "name": "Nurul Hassan",
+      "email": "nurul@siroccomedia.ae",
+      "company": "Sirocco Media",
+      "plan": "Growth"
+    },
+    "messages": [
+      {
+        "id": "MSG-12",
+        "author": { "name": "Nurul Hassan", "role": "customer" },
+        "body": "The TRN is in our profile but every invoice since June has been issued without it. We can't file these.",
+        "sentAt": "2026-09-06T13:30:00.000Z"
+      },
+      {
+        "id": "MSG-13",
+        "author": { "name": "Aditi Sharma", "role": "agent" },
+        "body": "Found it — the field was saved against the account but not against the billing entity, so the template had nothing to render. I've corrected it and reissued the four affected invoices. They're in your inbox now with the TRN on them.",
+        "sentAt": "2026-09-07T10:48:00.000Z"
+      },
+      {
+        "id": "MSG-14",
+        "author": { "name": "Nurul Hassan", "role": "customer" },
+        "body": "Received and all four look right. Thank you.",
+        "sentAt": "2026-09-07T11:15:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1031",
+    "subject": "Password reset email never arrives",
+    "description": "Two of our users can't reset their passwords — the reset email never lands. Not in spam. Other emails from Ledgerly arrive normally for the same addresses.",
+    "priority": "medium",
+    "status": "in_progress",
+    "channel": "email",
+    "createdAt": "2026-09-05T08:12:00.000Z",
+    "updatedAt": "2026-09-06T09:30:00.000Z",
+    "assignee": "Lena Cruz",
+    "tags": ["auth", "email-delivery"],
+    "customer": {
+      "id": "CUS-109",
+      "name": "Ellie Brandt",
+      "email": "ellie.brandt@fernwood.co",
+      "company": "Fernwood Co",
+      "plan": "Starter"
+    },
+    "messages": [
+      {
+        "id": "MSG-15",
+        "author": { "name": "Ellie Brandt", "role": "customer" },
+        "body": "Both users are on our own domain and receive invoices fine, so it seems specific to the reset email.",
+        "sentAt": "2026-09-05T08:12:00.000Z"
+      },
+      {
+        "id": "MSG-16",
+        "author": { "name": "Lena Cruz", "role": "agent" },
+        "body": "Our logs show both as delivered, which points at filtering on the receiving side rather than sending. Could you ask your IT team to check quarantine for messages from no-reply@ledgerly.com? Meanwhile I can send both users a one-time link directly.",
+        "sentAt": "2026-09-06T09:30:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1029",
+    "subject": "Change plan from monthly to annual mid-term",
+    "description": "We'd like to switch to annual billing before our next renewal and understand how the remaining monthly balance would be treated.",
+    "priority": "low",
+    "status": "open",
+    "channel": "chat",
+    "createdAt": "2026-09-04T14:50:00.000Z",
+    "updatedAt": "2026-09-04T14:50:00.000Z",
+    "assignee": null,
+    "tags": ["plans", "billing"],
+    "customer": {
+      "id": "CUS-097",
+      "name": "Kenji Watanabe",
+      "email": "k.watanabe@hokutofit.jp",
+      "company": "Hokuto Fit",
+      "plan": "Growth"
+    },
+    "messages": [
+      {
+        "id": "MSG-17",
+        "author": { "name": "Kenji Watanabe", "role": "customer" },
+        "body": "If we move to annual on 20 September, is the rest of this month credited or lost?",
+        "sentAt": "2026-09-04T14:50:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1027",
+    "subject": "Webhook retries stopped after 3 attempts",
+    "description": "Documentation says failed webhooks retry with backoff for 24 hours. Ours stop after three attempts inside two minutes, so a short outage on our side means permanently lost events.",
+    "priority": "high",
+    "status": "in_progress",
+    "channel": "email",
+    "createdAt": "2026-09-03T10:35:00.000Z",
+    "updatedAt": "2026-09-05T15:20:00.000Z",
+    "assignee": "Rafi Ahmed",
+    "tags": ["webhooks", "reliability", "docs"],
+    "customer": {
+      "id": "CUS-084",
+      "name": "Sofia Lindqvist",
+      "email": "sofia@brightseam.se",
+      "company": "Brightseam",
+      "plan": "Scale"
+    },
+    "messages": [
+      {
+        "id": "MSG-18",
+        "author": { "name": "Sofia Lindqvist", "role": "customer" },
+        "body": "We had an eight-minute deploy window on Tuesday and lost 214 events. Three retries in two minutes doesn't match what the docs describe.",
+        "sentAt": "2026-09-03T10:35:00.000Z"
+      },
+      {
+        "id": "MSG-19",
+        "author": { "name": "Rafi Ahmed", "role": "agent" },
+        "body": "You're right, and the docs are describing behaviour that only applies to accounts on the newer delivery pipeline. Yours is still on the old one. I've requested the migration and I'll confirm once it's scheduled.",
+        "sentAt": "2026-09-04T09:10:00.000Z"
+      },
+      {
+        "id": "MSG-20",
+        "author": { "name": "Sofia Lindqvist", "role": "customer" },
+        "body": "Please do. Can we also get the 214 events replayed once we're moved?",
+        "sentAt": "2026-09-05T15:20:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1024",
+    "subject": "Update card on file",
+    "description": "Our company card was reissued and I need to replace the one saved on the account before the next charge.",
+    "priority": "low",
+    "status": "resolved",
+    "channel": "chat",
+    "createdAt": "2026-09-02T16:10:00.000Z",
+    "updatedAt": "2026-09-02T16:38:00.000Z",
+    "assignee": "Aditi Sharma",
+    "tags": ["billing", "payment-method"],
+    "customer": {
+      "id": "CUS-071",
+      "name": "Rohan Malhotra",
+      "email": "rohan@anvilstudio.in",
+      "company": "Anvil Studio",
+      "plan": "Starter"
+    },
+    "messages": [
+      {
+        "id": "MSG-21",
+        "author": { "name": "Rohan Malhotra", "role": "customer" },
+        "body": "Where do I change the saved card? I can only find the invoice history.",
+        "sentAt": "2026-09-02T16:10:00.000Z"
+      },
+      {
+        "id": "MSG-22",
+        "author": { "name": "Aditi Sharma", "role": "agent" },
+        "body": "Settings → Billing → Payment method, then Replace card. The old one is removed once the new card passes a $0 authorisation.",
+        "sentAt": "2026-09-02T16:22:00.000Z"
+      },
+      {
+        "id": "MSG-23",
+        "author": { "name": "Rohan Malhotra", "role": "customer" },
+        "body": "Done, thanks.",
+        "sentAt": "2026-09-02T16:38:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "TCK-1021",
+    "subject": "Duplicate dunning emails to customers",
+    "description": "Some of our end customers received the same payment-failure reminder three times in one day. It's damaging trust and we've had two cancellations we think are related.",
+    "priority": "medium",
+    "status": "resolved",
+    "channel": "email",
+    "createdAt": "2026-09-01T09:55:00.000Z",
+    "updatedAt": "2026-09-03T14:05:00.000Z",
+    "assignee": "Lena Cruz",
+    "tags": ["dunning", "email-delivery", "escalation"],
+    "customer": {
+      "id": "CUS-058",
+      "name": "Amara Diallo",
+      "email": "amara@cedarline.com",
+      "company": "Cedarline",
+      "plan": "Growth"
+    },
+    "messages": [
+      {
+        "id": "MSG-24",
+        "author": { "name": "Amara Diallo", "role": "customer" },
+        "body": "Roughly 60 of our customers got the same reminder three times on 31 August. Two have since cancelled and mentioned it.",
+        "sentAt": "2026-09-01T09:55:00.000Z"
+      },
+      {
+        "id": "MSG-25",
+        "author": { "name": "Lena Cruz", "role": "agent" },
+        "body": "Confirmed on our side. A retry in the scheduler re-queued the batch without checking whether it had already been sent. The fix went out this morning and we've added a send-once guard per customer per day.",
+        "sentAt": "2026-09-03T13:40:00.000Z"
+      },
+      {
+        "id": "MSG-26",
+        "author": { "name": "Amara Diallo", "role": "customer" },
+        "body": "Appreciate the straight answer. Closing this from our side.",
+        "sentAt": "2026-09-03T14:05:00.000Z"
+      }
+    ]
+  }
+]

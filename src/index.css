@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas:         #EEF1F4;
+  --color-surface:        #FFFFFF;
+  --color-surface-sunken: #F6F8FA;
+  --color-line:           #DCE1E7;
+  --color-ink:            #12171C;
+  --color-muted:          #5C6873;
+
+  --color-accent:      #2551D6;
+  --color-accent-tint: #EDF2FF;
+
+  --color-prio-high:        #C0392B;
+  --color-prio-high-text:   #9B2C1F;
+  --color-prio-high-tint:   #FBEAE7;
+  --color-prio-medium:      #C98A21;
+  --color-prio-medium-text: #8A5D0C;
+  --color-prio-medium-tint: #FDF4E3;
+
+  --color-status-open:     #3B6FE0;
+  --color-status-progress: #7C5CE0;
+  --color-status-resolved: #2E8B62;
+
+  --color-success: #2E8B62;
+  --color-danger:  #C0392B;
+
+  --radius-surface: 10px;
+  --radius-control: 6px;
+}
+
+@layer base {
+  /* 14px sits on body, not html: Tailwind's spacing scale is rem-based, so a 14px
+     root would put every spacing utility on a 3.5px grid and drop 12px labels to 10.5px. */
+  body {
+    font-size: 14px;
+    @apply bg-canvas text-ink font-sans antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
