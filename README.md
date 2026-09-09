@@ -3,7 +3,7 @@
 A support-team dashboard for triaging customer tickets: scan the queue, filter it, open a
 ticket, move it along. Built as a technical task.
 
-**Live:** `<vercel url>`
+**Live:** https://customer-support-dashboard-six.vercel.app
 **Repo:** https://github.com/Kunalmishra77/customer-support-dashboard
 
 ## What it does
