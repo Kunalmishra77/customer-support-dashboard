@@ -1,8 +1,9 @@
 import type { KeyboardEvent } from 'react'
 import { ChevronRight } from 'lucide-react'
+import PriorityTag from '@/features/tickets/components/PriorityTag'
 import StatusSelect from '@/features/tickets/components/StatusSelect'
 import { cn } from '@/lib/cn'
-import { PRIORITY_META } from '@/lib/constants'
+import { PRIORITY_META, STATUS_META } from '@/lib/constants'
 import { formatAbsolute, formatRelative } from '@/lib/date'
 import type { Ticket } from '@/types/ticket'
 
@@ -23,7 +24,9 @@ export default function TicketRow({ ticket, selected, onOpen }: TicketRowProps) 
     <tr
       role="button"
       tabIndex={0}
-      aria-label={`Open ticket ${ticket.id}, ${ticket.subject}`}
+      // Priority and status belong in the accessible name: the edge rule is
+      // colour only, which a screen reader cannot convey.
+      aria-label={`Open ticket ${ticket.id}, ${ticket.subject}, ${PRIORITY_META[ticket.priority].label} priority, ${STATUS_META[ticket.status].label}`}
       onClick={() => onOpen(ticket.id)}
       onKeyDown={handleKeyDown}
       className={cn(
@@ -42,11 +45,17 @@ export default function TicketRow({ ticket, selected, onOpen }: TicketRowProps) 
         </p>
       </td>
 
-      <td className="w-44 px-4">
+      {/* The edge rule scans fastest, but colour alone fails WCAG 1.4.1 and the
+          brief asks for priority as a field, so it is spelled out too. */}
+      <td className="w-24 px-4">
+        <PriorityTag priority={ticket.priority} />
+      </td>
+
+      <td className="w-48 px-4">
         <StatusSelect ticketId={ticket.id} status={ticket.status} stopRowActivation />
       </td>
 
-      <td className="tnum w-28 px-4 text-muted" title={formatAbsolute(ticket.createdAt)}>
+      <td className="tnum w-24 px-4 text-muted" title={formatAbsolute(ticket.createdAt)}>
         {formatRelative(ticket.createdAt)}
       </td>
 

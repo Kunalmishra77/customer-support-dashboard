@@ -2,7 +2,7 @@ import type { KeyboardEvent } from 'react'
 import PriorityTag from '@/features/tickets/components/PriorityTag'
 import StatusSelect from '@/features/tickets/components/StatusSelect'
 import { cn } from '@/lib/cn'
-import { PRIORITY_META } from '@/lib/constants'
+import { PRIORITY_META, STATUS_META } from '@/lib/constants'
 import { formatAbsolute, formatRelative } from '@/lib/date'
 import type { Ticket } from '@/types/ticket'
 
@@ -23,7 +23,9 @@ export default function TicketCard({ ticket, selected, onOpen }: TicketCardProps
     <div
       role="button"
       tabIndex={0}
-      aria-label={`Open ticket ${ticket.id}, ${ticket.subject}`}
+      // Matches the table row: the card shows a priority tag, but the accessible
+      // name should carry priority and status too.
+      aria-label={`Open ticket ${ticket.id}, ${ticket.subject}, ${PRIORITY_META[ticket.priority].label} priority, ${STATUS_META[ticket.status].label}`}
       onClick={() => onOpen(ticket.id)}
       onKeyDown={handleKeyDown}
       className={cn(

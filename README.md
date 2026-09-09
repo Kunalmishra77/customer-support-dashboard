@@ -121,6 +121,11 @@ the same time, with no prop plumbing.
 each row, so it is scannable without reading; status is a small neutral dot. Two urgency scales
 competing for attention would make both harder to read.
 
+The rule is paired with a text tag rather than replacing it. Colour alone would fail WCAG 1.4.1
+and would leave the field invisible to a screen reader, so priority and status are also written
+into each row's accessible name: *"Open ticket TCK-1042, Invoice 4402 charged twice, High
+priority, Open"*.
+
 **Derived data is never stored.** Stats and the filtered list are computed with `useMemo` from
 the ticket array. Two sources of truth for the same number is how counts drift out of sync.
 

@@ -27,15 +27,20 @@ export default function StatusSelect({
     : {}
 
   return (
-    <span className="inline-flex items-center gap-2" {...stop}>
+    // A div, not a span: Select renders a div, which is invalid inside a span.
+    // flex-1 lets the control take its width from the column it sits in -
+    // shrink-to-fit sized it to the longest option and clipped "In progress".
+    <div className="flex items-center gap-2" {...stop}>
       <Dot className={STATUS_META[status].dotClass} />
-      <Select
-        aria-label={`Status for ticket ${ticketId}`}
-        variant={stopRowActivation ? 'ghost' : 'default'}
-        value={status}
-        options={OPTIONS}
-        onChange={(event) => updateStatus(ticketId, event.target.value as Status)}
-      />
-    </span>
+      <div className="min-w-0 flex-1">
+        <Select
+          aria-label={`Status for ticket ${ticketId}`}
+          variant={stopRowActivation ? 'ghost' : 'default'}
+          value={status}
+          options={OPTIONS}
+          onChange={(event) => updateStatus(ticketId, event.target.value as Status)}
+        />
+      </div>
+    </div>
   )
 }

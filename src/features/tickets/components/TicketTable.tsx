@@ -15,8 +15,9 @@ export default function TicketTable({ tickets, selectedId, onOpen }: TicketTable
           <tr className="h-9 text-xs font-medium text-muted">
             <th className="w-[3px] p-0" />
             <th scope="col" className="pl-4 pr-4 font-medium">Customer / subject</th>
-            <th scope="col" className="w-44 px-4 font-medium">Status</th>
-            <th scope="col" className="w-28 px-4 font-medium">Created</th>
+            <th scope="col" className="w-24 px-4 font-medium">Priority</th>
+            <th scope="col" className="w-48 px-4 font-medium">Status</th>
+            <th scope="col" className="w-24 px-4 font-medium">Created</th>
             <th className="w-10 pr-4" />
           </tr>
         </thead>
