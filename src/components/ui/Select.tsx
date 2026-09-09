@@ -30,7 +30,9 @@ export default function Select({ options, variant = 'default', className, ...res
     <div className="relative">
       <select
         className={cn(
-          'h-9 w-full cursor-pointer appearance-none rounded-control border',
+          // 44px touch target on mobile per design system section 4; the
+          // specified 36px control height applies from md up.
+          'h-11 w-full cursor-pointer appearance-none rounded-control border md:h-9',
           'pl-3 pr-8 text-ink transition-colors duration-[120ms]',
           VARIANTS[variant],
           className,

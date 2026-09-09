@@ -18,7 +18,9 @@ export default function Input({ leadingIcon, className, ...rest }: InputProps) {
       )}
       <input
         className={cn(
-          'h-9 w-full rounded-control border border-line bg-surface text-ink',
+          // 44px touch target on mobile per design system section 4; the
+          // specified 36px control height applies from md up.
+          'h-11 w-full rounded-control border border-line bg-surface text-ink md:h-9',
           'placeholder:text-muted transition-colors duration-[120ms] hover:border-muted/40',
           leadingIcon ? 'pl-9 pr-3' : 'px-3',
           className,

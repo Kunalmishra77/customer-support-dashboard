@@ -18,7 +18,8 @@ const VARIANTS: Record<Variant, string> = {
 
 const SIZES: Record<Size, string> = {
   sm: 'h-8 px-3',
-  md: 'h-9 px-4',
+  // 44px on mobile for the touch target, 36px from md up as specified.
+  md: 'h-11 px-4 md:h-9',
 }
 
 export default function Button({

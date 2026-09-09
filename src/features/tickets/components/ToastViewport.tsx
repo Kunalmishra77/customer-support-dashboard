@@ -5,9 +5,10 @@ export default function ToastViewport() {
   const toasts = useUiStore((state) => state.toasts)
   const dismissToast = useUiStore((state) => state.dismissToast)
 
-  if (toasts.length === 0) return null
-
   return (
+    // The live region is always mounted, even when empty: screen readers only
+    // announce changes inside a region that already existed, so creating it and
+    // its first toast in the same render would go unannounced.
     <div
       role="status"
       aria-live="polite"
